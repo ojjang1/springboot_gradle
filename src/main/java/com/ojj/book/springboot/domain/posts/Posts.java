@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter // 필드의 getter 메서드 자동생성
 @NoArgsConstructor //기본생성자 자동 추가
@@ -16,7 +13,7 @@ import javax.persistence.Id;
 public class Posts {
 
     @Id // 테이블의 PK 역활
-    @GeneratedValue  //PK 생성규칙 (디폴트값으로 auto_increment 인듯??- 찾아볼것)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //PK 생성규칙 (auto_increment 를 붙여줌.)
     private Long id;
 
     @Column(length = 500, nullable = false)  // 플드명으로 선언안해도 된다. 옵션 넣고싶을떄 넣어줌.
@@ -33,6 +30,11 @@ public class Posts {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
 
