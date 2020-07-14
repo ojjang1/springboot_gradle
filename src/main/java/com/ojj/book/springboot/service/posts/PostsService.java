@@ -4,12 +4,16 @@ package com.ojj.book.springboot.service.posts;
 import com.ojj.book.springboot.domain.posts.Posts;
 import com.ojj.book.springboot.domain.posts.PostsRepository;
 
+import com.ojj.book.springboot.web.dto.PostsListResponseDto;
 import com.ojj.book.springboot.web.dto.PostsResponseDto;
 import com.ojj.book.springboot.web.dto.PostsSaveRequestDto;
 import com.ojj.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -46,4 +50,21 @@ public class PostsService {
 
         return new PostsResponseDto(entity);
     }
+
+    @Transactional(readOnly = true)  //트랜젝션 범위는 유지 하되 조회 기능만 남겨두어 조회 속도가 개선
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시글이 없습니다. id=" + id)
+        );
+
+        postsRepository.delete(posts); //엔티티 자체로 삭제 가능 혹은 id를 넣어서도 삭제 가능
+    }
+
 }
