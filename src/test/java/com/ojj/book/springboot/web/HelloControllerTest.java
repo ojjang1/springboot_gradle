@@ -1,9 +1,13 @@
 package com.ojj.book.springboot.web;
 
+import com.ojj.book.springboot.config.auth.SecurityConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -14,13 +18,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @RunWith(SpringRunner.class) //스프링 부트 내부의 실행자와 Junit 사이 연결 역활
-@WebMvcTest(controllers = HelloController.class) //Controller, ControllerAdvice 를 테스트할때 사용
+@WebMvcTest(controllers = HelloController.class, //Controller, ControllerAdvice 만  테스트할때 사용
+        excludeFilters = { @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,  //security 포함한 테스트를 위해 스캔추가
+                                                classes = SecurityConfig.class)})
 public class HelloControllerTest {
 
     @Autowired // Bean 자동 주입
     private MockMvc mvc;   //web api를 테스트할때 가상으로 실행할수 있게 해줌
 
     @Test
+    @WithMockUser(roles = "USER")
     public void hello가_리턴된다() throws Exception {
         String hello = "hello";
 
@@ -30,6 +37,7 @@ public class HelloControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     public void helloDto가_리턴된다() throws Exception {
         String name = "hello";
         int amount = 1000;
