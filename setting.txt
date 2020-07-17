@@ -9,3 +9,6 @@ springboot 2.1.9 버전까지도 호환가능
 
 로컬 환경에서
 서버는 내부 톰캣, db는 h2를 사용해서 테스트했음.
+
+database 플러그인
+Database Navigator
