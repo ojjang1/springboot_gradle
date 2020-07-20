@@ -12,3 +12,7 @@ springboot 2.1.9 버전까지도 호환가능
 
 database 플러그인
 Database Navigator
+
+---------------
+내부 테스트 db 는 h2
+aws 에 배포하기위한 db - mariadb
