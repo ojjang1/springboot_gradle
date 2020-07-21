@@ -5,8 +5,8 @@
         <!-- 로그인 가능 영역 -->
         <div class="row">
             <div class="col-md-6">
-                <a href="/posts/save" role="button" class="btn btn-primary"> 글 등록 </a>
                 {{#userName}}
+                    <a href="/posts/save" role="button" class="btn btn-primary"> 글 등록 </a>
                     Logged in as: <span id="user">{{userName}} {{name}}</span>
                     <a href="/logout" class="btn btn-info active" role="button">Logout</a>
                 {{/userName}}
