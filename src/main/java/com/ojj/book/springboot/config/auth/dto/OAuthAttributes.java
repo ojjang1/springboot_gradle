@@ -32,6 +32,7 @@ public class OAuthAttributes {
 
     public static OAuthAttributes of(String registrationId, String userNameAttributeName,
                                      Map<String, Object> attributes) {
+        System.out.println(attributes);
         // 네이버를 추가하여서 등록환경이 naver.인지 확인
         if("naver".equals(registrationId)) {
             System.out.println("네이버로 로그인");
@@ -64,7 +65,9 @@ public class OAuthAttributes {
     private static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
         // naver 에서는 결과가 JSON 형태로 들어오는데 username 가 response 필드 안에 있어서 이것을 받아온다.
         // JSON 의 최 상위 필드만 지정 가능하기 때문에 response에서 안에 내용을 꺼내는 방법을 사용
+        System.out.println(attributes);
         Map<String, Object> response = (Map<String,Object>) attributes.get("response");
+        System.out.println(response);
 
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
