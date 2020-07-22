@@ -5,7 +5,9 @@ PROJECT_NAME=springboot_gradle
 
 echo "> Build 파일 복사"
 
-chmod +x $REPOSITORY/zip/*.jar
+JAR_NAME1=$(ls -tr $REPOSITORY/zip/*.jar | tail -n 1)
+
+chmod +x $JAR_NAME1
 
 cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
