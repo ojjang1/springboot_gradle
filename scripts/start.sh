@@ -4,7 +4,7 @@ ABSPATH=$(readlink -f $0)
 ABSDIR=$(dirname $ABSPATH)  #현재 stop.sh가 속해있는 경로를 찾음
 source ${ABSDIR}/profile.sh    # java의 일종에 import 구문
 
-REPOSITORY=/home/ec-user/app/step3
+REPOSITORY=/home/ec2-user/app/step3
 PROJECT_NAME=springboot_gradle
 
 echo "> BUILD 파일 복사"
